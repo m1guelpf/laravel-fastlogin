@@ -1,0 +1,49 @@
+{
+    "name": "m1guelpf/laravel-fastlogin",
+    "description": "Allow your users to login with FaceID/TouchID",
+    "keywords": [
+        "m1guelpf",
+        "laravel-fastlogin"
+    ],
+    "homepage": "https://github.com/m1guelpf/laravel-fastlogin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Miguel Piedrafita",
+            "email": "soy@miguelpiedrafita.com",
+            "role": "Developer",
+            "homepage": "https://miguelpiedrafita.com"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "illuminate/contracts": "^8.0",
+        "illuminate/database": "^8.0",
+        "illuminate/http": "^8.0",
+        "illuminate/support": "^8.0",
+        "illuminate/validation": "^8.0",
+        "psr/http-message": "^1.0",
+        "web-auth/webauthn-lib": "^3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "M1guelpf\\FastLogin\\": "src"
+        }
+    },
+    "scripts": {
+        "psalm": "vendor/bin/psalm",
+        "cs": "php-cs-fixer fix . --config=.php_cs --allow-risky=yes"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "M1guelpf\\FastLogin\\FastLoginServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
