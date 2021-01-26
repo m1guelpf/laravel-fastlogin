@@ -102,6 +102,6 @@ class FastLoginController
 
     protected function getCacheKey()
     {
-        return 'fastlogin-request-'.sha1(request()->getHttpHost().request()->ip());
+        return 'fastlogin-request-'.sha1(request()->getHttpHost().session()->getId());
     }
 }
