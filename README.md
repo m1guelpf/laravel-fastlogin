@@ -13,11 +13,27 @@ You can install the package via composer:
 composer require m1guelpf/laravel-fastlogin
 ```
 
+After installing the package you can create the `credentials` table by running the migrations:
+
+```php
+php artisan migrate
+```
+
 ## Usage
 
 This package takes care of everything you need on the backend. To make our life easier on the frontend, we'll be using `@web-auth/webauthn-helper` and `js-cookie`. You can install them by running `yarn add @web-auth/webauthn-helper js-cookie`.
 
-To get started, you need to have the user register a new credential. You can do so by presenting them with a modal when they login, or by adding the option to their settings page.
+To get started, you first have to add the `CanFastLogin` trait to your user model.
+
+```php
+
+class User extends Authenticatable
+{
+    use CanFastLogin;
+}
+```
+
+Next, you need to have the user register a new credential. You can do so by presenting them with a modal when they login, or by adding the option to their settings page.
 
 > Note: Due to Apple's restrictions, you can only call the creation function after a user gesture, that is, the function needs to be invoked in an user-generated event (like a "click" event).
 
