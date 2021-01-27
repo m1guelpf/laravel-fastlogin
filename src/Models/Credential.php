@@ -15,7 +15,6 @@ class Credential extends Model
      * @var array
      */
     protected $fillable = [
-		'credId',
-		'key',
+		'credId', 'key',
 	];
 }
