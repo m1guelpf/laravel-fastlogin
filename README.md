@@ -13,6 +13,15 @@ You can install the package via composer:
 composer require m1guelpf/laravel-fastlogin
 ```
 
+You'll then need to add the `\M1guelpf\FastLogin\Models\Concerns\HasFastLogin` trait to your user model and migrate your database by running `php artisan migrate`.
+
+```php
+class User extends Authenticatable
+{
+    use CanFastLogin;
+}
+```
+
 ## Usage
 
 This package takes care of everything you need on the backend. To make our life easier on the frontend, we'll be using `@web-auth/webauthn-helper` and `js-cookie`. You can install them by running `yarn add @web-auth/webauthn-helper js-cookie`.
