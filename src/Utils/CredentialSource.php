@@ -5,7 +5,7 @@ namespace M1guelpf\FastLogin\Utils;
 use Illuminate\Support\Str;
 use Webauthn\TrustPath\EmptyTrustPath;
 use Webauthn\PublicKeyCredentialSource;
-use M1guelpf\FastLogin\Models\Credential;
+use M1guelpf\FastLogin\Models\WebAuthnCredential;
 use Webauthn\PublicKeyCredentialUserEntity;
 use Webauthn\PublicKeyCredentialSourceRepository;
 
@@ -13,18 +13,10 @@ class CredentialSource implements PublicKeyCredentialSourceRepository
 {
     public function findOneByCredentialId(string $publicKeyCredentialId): ?PublicKeyCredentialSource
     {
-        $credential = Credential::where('credId', $publicKeyCredentialId)->first();
+        $credential = WebAuthnCredential::where('credId', $publicKeyCredentialId)->first();
 
         return is_null($credential) ? $credential : new PublicKeyCredentialSource(
-            publicKeyCredentialId: $credential['credId'],
-            type: 'public-key',
-            transports: ['internal'],
-            attestationType: 'none',
-            trustPath: new EmptyTrustPath,
-            aaguid: Str::uuid(),
-            credentialPublicKey: $credential['key'],
-            userHandle: $credential->user_id,
-            counter: 0,
+            $credential['credId'], 'public-key', ['internal'], 'none', new EmptyTrustPath, Str::uuid(), $credential['key'], $credential->user_id, 0,
         );
     }
 

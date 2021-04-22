@@ -40,7 +40,7 @@ class FastLoginController
                 new CredentialParameter(Credential::CREDENTIAL_TYPE_PUBLIC_KEY, Algorithms::COSE_ALGORITHM_ES256),
                 new CredentialParameter(Credential::CREDENTIAL_TYPE_PUBLIC_KEY, Algorithms::COSE_ALGORITHM_RS256),
             ],
-        )->setAuthenticatorSelection(new Authenticator('platform'))->excludeCredentials($request->user()->credentials->map(function ($credential) {
+        )->setAuthenticatorSelection(new Authenticator('platform'))->excludeCredentials($request->user()->webauthnCredentials->map(function ($credential) {
             return new Credential(Credential::CREDENTIAL_TYPE_PUBLIC_KEY, $credential['credId'], ['internal']);
         })->toArray()), fn ($creationOptions) => Cache::put($this->getCacheKey(), $creationOptions->jsonSerialize(), now()->addMinutes(5)))->jsonSerialize();
     }
