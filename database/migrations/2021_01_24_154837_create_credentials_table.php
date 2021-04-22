@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCredentialsTable extends Migration
+class CreateWebauthnCredentialsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -29,6 +29,6 @@ class CreateCredentialsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('credentials');
+        Schema::dropIfExists('webauthn_credentials');
     }
 }
