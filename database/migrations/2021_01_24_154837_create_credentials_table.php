@@ -13,7 +13,7 @@ class CreateCredentialsTable extends Migration
      */
     public function up()
     {
-        Schema::create('credentials', function (Blueprint $table) {
+        Schema::create('webauthn_credentials', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
             $table->binary('credId');

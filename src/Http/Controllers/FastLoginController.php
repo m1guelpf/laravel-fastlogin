@@ -29,14 +29,14 @@ class FastLoginController
     public function createDetails(Request $request)
     {
         return tap(CreationRequest::create(
-            rp: new RelyingParty(config('app.name'), $request->getHttpHost()),
-            user: new UserEntity(
+            new RelyingParty(config('app.name'), $request->getHttpHost()),
+            new UserEntity(
                 $request->user()->email,
                 $request->user()->id,
                 $request->user()->name,
             ),
-            challenge: random_bytes(16),
-            pubKeyCredParams: [
+            random_bytes(16),
+            [
                 new CredentialParameter(Credential::CREDENTIAL_TYPE_PUBLIC_KEY, Algorithms::COSE_ALGORITHM_ES256),
                 new CredentialParameter(Credential::CREDENTIAL_TYPE_PUBLIC_KEY, Algorithms::COSE_ALGORITHM_RS256),
             ],
@@ -60,7 +60,7 @@ class FastLoginController
             throw new UnauthorizedException('FastLogin: Failed validating request', 422, $e);
         }
 
-        $request->user()->credentials()->create([
+        $request->user()->webauthnCredentials()->create([
             'credId' => $credId = $response->getPublicKeyCredentialId(),
             'key'    => $response->getCredentialPublicKey(),
         ]);

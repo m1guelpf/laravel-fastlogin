@@ -2,12 +2,12 @@
 
 namespace M1guelpf\FastLogin\Models\Concerns;
 
-use M1guelpf\FastLogin\Models\Credential;
+use M1guelpf\FastLogin\Models\WebAuthnCredential;
 
 trait CanFastLogin
 {
-    public function credentials()
+    public function webauthnCredentials()
     {
-        return $this->hasMany(Credential::class);
+        return $this->hasMany(WebAuthnCredential::class);
     }
 }
