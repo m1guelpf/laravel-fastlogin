@@ -13,7 +13,7 @@ You can install the package via composer:
 composer require m1guelpf/laravel-fastlogin
 ```
 
-You'll then need to add the `\M1guelpf\FastLogin\Models\Concerns\HasFastLogin` trait to your user model and migrate your database by running `php artisan migrate`.
+You'll then need to add the `\M1guelpf\FastLogin\Models\Concerns\CanFastLogin` trait to your user model and migrate your database by running `php artisan migrate`.
 
 ```php
 class User extends Authenticatable
