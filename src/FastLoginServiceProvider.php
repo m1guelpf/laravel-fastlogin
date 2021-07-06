@@ -2,12 +2,12 @@
 
 namespace M1guelpf\FastLogin;
 
-use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Http\Request;
 use Cose\Algorithm\Signature;
 use Illuminate\Support\ServiceProvider;
 use Webauthn\PublicKeyCredentialLoader;
 use M1guelpf\FastLogin\Utils\CredentialSource;
+use Illuminate\Cookie\Middleware\EncryptCookies;
 use Cose\Algorithm\Manager as CoseAlgorithmManager;
 use Webauthn\TokenBinding\IgnoreTokenBindingHandler;
 use Webauthn\AuthenticatorAssertionResponseValidator;
