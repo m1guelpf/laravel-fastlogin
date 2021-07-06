@@ -2,6 +2,7 @@
 
 namespace M1guelpf\FastLogin;
 
+use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Http\Request;
 use Cose\Algorithm\Signature;
 use Illuminate\Support\ServiceProvider;
@@ -33,6 +34,10 @@ class FastLoginServiceProvider extends ServiceProvider
 
     public function register()
     {
+        $this->app->resolving(EncryptCookies::class, function ($object) {
+            $object->disableFor(FastLoginServiceProvider::FASTLOGIN_COOKIE);
+        });
+
         $this->app->bind(CoseAlgorithmManager::class, static function () {
             return tap(new CoseAlgorithmManager, function ($manager) {
                 array_map(fn ($algo) => $manager->add(new $algo), [
