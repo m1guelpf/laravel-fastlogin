@@ -3,6 +3,7 @@
 namespace M1guelpf\FastLogin\Http\Controllers;
 
 use Cose\Algorithms;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 use Illuminate\Support\Carbon;
@@ -126,7 +127,7 @@ class FastLoginController
 
 		$authenticatable = Auth::loginUsingId(intval($response->getUserHandle()));
 
-        if ($authenticatable instanceof Illuminate\Contracts\Auth\Authenticatable) {
+        if ($authenticatable instanceof Authenticatable) {
         	// Dispatch event that we have logged in via FastLogin.
         	FastLoginLogIn::dispatch($authenticatable);
 		}
