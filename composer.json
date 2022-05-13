@@ -22,10 +22,10 @@
         "illuminate/http": "^8.0",
         "illuminate/support": "^8.0",
         "illuminate/validation": "^8.0",
-        "nyholm/psr7": "^1.3",
-        "psr/http-message": "^1.0",
-        "symfony/psr-http-message-bridge": "^2.0",
-        "web-auth/webauthn-lib": "^4.0"
+        "nyholm/psr7": "*",
+        "psr/http-message": "*",
+        "symfony/psr-http-message-bridge": "*",
+        "web-auth/webauthn-lib": "*"
     },
     "autoload": {
         "psr-4": {
