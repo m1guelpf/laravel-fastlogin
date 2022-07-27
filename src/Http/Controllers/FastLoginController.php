@@ -36,7 +36,7 @@ class FastLoginController
 	 */
 	public function createDetails(Request $request)
     {
-        return tap(CreationRequest::create(
+        $creationRequest = CreationRequest::create(
             new RelyingParty(config('app.name'), $request->getHttpHost()),
             new UserEntity(
                 $request->user()->email,
@@ -48,9 +48,23 @@ class FastLoginController
                 new CredentialParameter(Credential::CREDENTIAL_TYPE_PUBLIC_KEY, Algorithms::COSE_ALGORITHM_ES256),
                 new CredentialParameter(Credential::CREDENTIAL_TYPE_PUBLIC_KEY, Algorithms::COSE_ALGORITHM_RS256),
             ],
-        )->setAuthenticatorSelection(new Authenticator('platform'))->excludeCredentials($request->user()->webauthnCredentials->map(function ($credential) {
-            return new Credential(Credential::CREDENTIAL_TYPE_PUBLIC_KEY, $credential['credId'], ['internal']);
-        })->toArray()), fn ($creationOptions) => Cache::put($this->getCacheKey(), $creationOptions->jsonSerialize(), now()->addMinutes(5)))->jsonSerialize();
+        )->setAuthenticatorSelection(
+            new Authenticator('platform')
+        );
+
+        $request->user()->webauthnCredentials->each(function($credential) use($creationRequest){
+            $creationRequest->excludeCredential(
+                new Credential(Credential::CREDENTIAL_TYPE_PUBLIC_KEY, $credential['credId'], ['internal'])
+            );
+        });
+
+        Cache::put(
+            $this->getCacheKey(),
+            $creationRequest->jsonSerialize(),
+            now()->addMinutes(5)
+        );
+
+        return $creationRequest->jsonSerialize();
     }
 
 	/**
