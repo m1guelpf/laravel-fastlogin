@@ -2,7 +2,7 @@
 
 namespace M1guelpf\FastLogin\Utils;
 
-use Illuminate\Support\Str;
+use Symfony\Component\Uid\Uuid;
 use Webauthn\TrustPath\EmptyTrustPath;
 use Webauthn\PublicKeyCredentialSource;
 use M1guelpf\FastLogin\Models\WebAuthnCredential;
@@ -16,7 +16,7 @@ class CredentialSource implements PublicKeyCredentialSourceRepository
         $credential = WebAuthnCredential::where('credId', $publicKeyCredentialId)->first();
 
         return is_null($credential) ? $credential : new PublicKeyCredentialSource(
-            $credential['credId'], 'public-key', ['internal'], 'none', new EmptyTrustPath, Str::uuid(), $credential['key'], $credential->user_id, 0,
+            $credential['credId'], 'public-key', ['internal'], 'none', new EmptyTrustPath, Uuid::v1(), $credential['key'], $credential->user_id, 0,
         );
     }
 
