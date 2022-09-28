@@ -50,7 +50,7 @@ class FastLoginController
             ],
         )->setAuthenticatorSelection(
             new Authenticator('platform')
-        );
+        )->setAttestation(CreationRequest::ATTESTATION_CONVEYANCE_PREFERENCE_NONE);
 
         $request->user()->webauthnCredentials->each(function($credential) use($creationRequest){
             $creationRequest->excludeCredential(
